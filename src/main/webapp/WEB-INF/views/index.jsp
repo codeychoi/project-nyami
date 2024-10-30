@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-Hello World
-
+    <script>
+        location.href = '/admin/members';
+    </script>
 </body>
 </html>
