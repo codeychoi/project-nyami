@@ -15,5 +15,6 @@
 	<button type="submit">회원가입</button>
 	<button onclick="location.href='/login'">로그인</button>
 </form>
+<button onclick="location.href='/'">홈</button>
 </body>
 </html>

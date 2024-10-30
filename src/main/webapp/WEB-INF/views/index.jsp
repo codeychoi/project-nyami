@@ -8,7 +8,9 @@
 </head>
 <body>
 
-Hello World
-
+<button onclick="location.href='/login'">로그인</button>
+<button onclick="location.href='/join'">회원가입</button>
+<button onclick="location.href='/myPage'">마이페이지</button>
+<button onclick="location.href='/noticeList'">공지사항</button>
 </body>
 </html>
