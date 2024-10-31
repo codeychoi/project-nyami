@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>페이지 이름</title>
-    <link rel="stylesheet" href="css/mypageStyles.css">
     <link rel="stylesheet" href="css/commonStyles.css">
+    <link rel="stylesheet" href="css/mypageStyles.css">
     <script>
         function openTab(event, tabName) {
             var i, tabcontent, tablinks;
@@ -60,7 +60,7 @@
                 
                 <div class="expanded-content">
 	                <!-- 내 활동 섹션 -->
-	                <jsp:include page="myCheck.jsp" />
+	                <jsp:include page="myCheck2.jsp" />
 	                <!-- 프로필 섹션 -->
 	    			<jsp:include page="profile.jsp" />
 	    			<!-- 계정 정보 섹션 -->

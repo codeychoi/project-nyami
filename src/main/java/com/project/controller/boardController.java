@@ -10,4 +10,19 @@ public class boardController {
 	public String noticeList() {
 		return "board/noticeList";
 	}
+	
+	@GetMapping("/notice")
+	public String notice() {
+		return "board/notice";
+	}
+	
+	@GetMapping("/eventList")
+	public String eventList() {
+		return "board/eventList";
+	}
+	
+	@GetMapping("/event")
+	public String event() {
+		return "board/event";
+	}
 }

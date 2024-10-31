@@ -29,4 +29,9 @@ public class UserController {
 	public String myPage() {
 		return "user/myPage";
 	}
+	
+	@GetMapping("/myPage2")
+	public String myPage2() {
+		return "user/myPage2";
+	}
 }
