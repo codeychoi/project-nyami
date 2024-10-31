@@ -2,6 +2,7 @@ package com.project.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -35,6 +36,18 @@ public class AdminController {
 	// 공지사항 관리 페이지
 	@GetMapping("/notice")
 	public String notice() {
+		return "adminNotice";
+	}
+	
+	// 공지사항 작성폼 페이지
+	@GetMapping("/notice/write")
+	public String noticeForm() {
+		return "adminNoticeForm";
+	}
+	
+	// 공지사항 작성
+	@PostMapping("/notice")
+	public String writeNotice() {
 		return "adminNotice";
 	}
 }

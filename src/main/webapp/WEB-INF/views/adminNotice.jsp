@@ -52,7 +52,8 @@
             </tbody>
         </table>
 
-        <button class="btn edit-btn" style="margin-top: 40px; padding: 10px;" onclick="location.href='#'">공지작성</button>
+        <button class="btn edit-btn" style="margin-top: 40px;"
+            onclick="location.href='/admin/notice/write'">공지작성</button>
     </div>
 </body>
 </html>

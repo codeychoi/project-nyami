@@ -59,8 +59,8 @@
                             <option value="30">30일</option>
                             <option value="0">영구</option>
                         </select>
-                        <button class="btn delete-btn">차단</button>
-                        <button class="btn edit-btn">차단 해제</button>
+                        <button class="delete-btn">차단</button>
+                        <button class="edit-btn">차단 해제</button>
                     </td>
                     <td style="color: #5a7beb;">활동</td>
                 </tr>
@@ -81,8 +81,8 @@
                             <option value="30">30일</option>
                             <option value="0">영구</option>
                         </select>
-                        <button class="btn delete-btn">차단</button>
-                        <button class="btn edit-btn">차단 해제</button>
+                        <button class="delete-btn">차단</button>
+                        <button class="edit-btn">차단 해제</button>
                     </td>
                     <td style="color: #ff4b4b;">영구차단</td>
                 </tr>
@@ -103,8 +103,8 @@
                             <option value="30">30일</option>
                             <option value="0">영구</option>
                         </select>
-                        <button class="btn delete-btn">차단</button>
-                        <button class="btn edit-btn">차단 해제</button>
+                        <button class="delete-btn">차단</button>
+                        <button class="edit-btn">차단 해제</button>
                     </td>
                     <td>차단 ( ~ 24.11.01 15:25)</td>
                 </tr>

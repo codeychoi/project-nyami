@@ -50,8 +50,8 @@
                     <td><a href="#">확인</a></td>
                     <td>1234</td>
                     <td>
-                        <button class="btn delete-btn">게시중단</button>
-                        <button class="btn edit-btn">재게시</button>
+                        <button class="delete-btn">게시중단</button>
+                        <button class="edit-btn">재게시</button>
                     </td>
                     <td style="color: #f44;">게시중단</td>
                 </tr>
