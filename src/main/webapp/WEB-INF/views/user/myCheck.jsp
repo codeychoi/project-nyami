@@ -14,7 +14,6 @@
 	         <div class="item">좋아요(가게2)</div>
 	         <div class="item">좋아요(가게3)</div>
 	         <div class="item">좋아요(가게4)</div>
-	         <div class="item">좋아요(가게5)</div>
 	     </div>
 	     <!-- 페이지네이션 -->
          <div class="pagination" id="likes-pagination">
@@ -23,7 +22,6 @@
              <button onclick="loadLikesPage(2)">2</button>
              <button onclick="loadLikesPage(3)">3</button>
              <button onclick="loadLikesPage(4)">4</button>
-             <button onclick="loadLikesPage(5)">5</button>
              <button onclick="loadLikesPage('next')">다음</button>
          </div>
 	     <h3>리뷰</h3>
@@ -32,7 +30,6 @@
 	         <div class="item">리뷰(가게2)</div>
 	         <div class="item">리뷰(가게3)</div>
 	         <div class="item">리뷰(가게4)</div>
-	         <div class="item">리뷰(가게5)</div>
 	     </div>
 	     <!-- 페이지네이션 -->
          <div class="pagination" id="reviews-pagination">
@@ -41,7 +38,6 @@
              <button onclick="loadReviewsPage(2)">2</button>
              <button onclick="loadReviewsPage(3)">3</button>
              <button onclick="loadReviewsPage(4)">4</button>
-             <button onclick="loadReviewsPage(5)">5</button>
              <button onclick="loadReviewsPage('next')">다음</button>
          </div>
 	</div>

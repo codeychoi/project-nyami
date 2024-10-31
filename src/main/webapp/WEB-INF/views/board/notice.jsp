@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세</title>
     <link rel="stylesheet" href="css/commonStyles.css">
-    <link rel="stylesheet" href="css/noticeStyles.css">
+    <link rel="stylesheet" href="css/notice/noticeCommonStyles.css">
+    <link rel="stylesheet" href="css/notice/noticeStyles.css">
 </head>
 <body>
     <!-- 상단바 -->

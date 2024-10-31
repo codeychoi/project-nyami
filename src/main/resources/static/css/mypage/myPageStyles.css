@@ -7,11 +7,6 @@
 	box-sizing: border-box;
 }
 
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f9f9f9;
-}
-
 .container {
 	max-width: 1800px;
 	margin: 20px auto 0 auto;
@@ -36,7 +31,7 @@ body {
 .profile-pic {
 	width: 150px;
 	height: 150px;
-	background-image: url('../images/images.jpeg');
+	background-image: url('../../images/images.jpeg');
 	border-radius: 50%;
 	margin: 0 auto;
 }
@@ -64,7 +59,7 @@ body {
 
 /* 메인 콘텐츠 스타일 */
 .main-content {
-	flex-grow: 1;
+	/* flex-grow: 1; 필요없는 코드 */
 	padding: 20px;
 	background-color: #ffffff;
 	border-radius: 8px;
