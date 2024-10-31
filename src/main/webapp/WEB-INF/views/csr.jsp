@@ -53,7 +53,7 @@
 		   	</div>
 		    <button class="contact-button">1:1 카톡 상담하기 (준비 중)</button>
 		    <div class="email-options">
-		        <button class="email-button">이메일 문의하기</button>
+		        <button class="email-button" onclick="window.location.href='/emailInquery';">이메일 문의하기</button>
 		        <button class="email-copy">이메일 주소 복사하기</button>
 		    </div>
 		</section>
