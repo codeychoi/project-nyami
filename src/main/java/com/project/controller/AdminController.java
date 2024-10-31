@@ -50,4 +50,16 @@ public class AdminController {
 	public String writeNotice() {
 		return "adminNotice";
 	}
+	
+	// 이벤트 관리 페이지
+	@GetMapping("/event")
+	public String event() {
+		return "adminEvent";
+	}
+	
+	// 이벤트 작성폼 페이지
+	@GetMapping("/event/write")
+	public String eventForm() {
+		return "adminEventForm";
+	}
 }

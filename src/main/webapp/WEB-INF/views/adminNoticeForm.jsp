@@ -52,7 +52,7 @@
                 <select id="topic" name="topic">
                     <option value="">주제 선택</option>
                     <option value="notice">공지</option>
-                    <option value="event">이벤트</option>
+                    <option value="maintainance">점검</option>
                 </select>
             </div>
 
