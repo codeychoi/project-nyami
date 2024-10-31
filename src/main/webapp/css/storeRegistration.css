@@ -240,3 +240,12 @@ header input {
 .address-search-btn:hover {
     background-color: #a0697b; /* 버튼 호버 효과 */
 }
+
+.file-names {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

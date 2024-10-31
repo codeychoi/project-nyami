@@ -1,19 +1,9 @@
-// 슬라이드 인덱스 초기화
-let slideIndex = 0;
-
-// 슬라이드 자동 전환 함수
-function showSlides() {
+function moveToSlide(slideIndex) {
     const slidesContainer = document.querySelector('.slider-container');
-    slideIndex++;
+    slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
 
-    // 두 개씩 보이는 슬라이드를 반복해서 넘기도록 설정
-    if (slideIndex >= 2) { // 슬라이드의 총 그룹 수에 따라 반복 설정
-        slideIndex = 0;
-    }
-
-    // 슬라이드 이동
-    slidesContainer.style.transform = `translateX(-${slideIndex * 50}%)`;
-}
-
-// 3초마다 슬라이드 전환
-setInterval(showSlides, 6000);
+    // 모든 버튼의 'active' 클래스를 제거하고 현재 선택된 버튼에 추가
+    const buttons = document.querySelectorAll('.slide-buttons button');
+    buttons.forEach(button => button.classList.remove('active'));
+    buttons[slideIndex].classList.add('active');
+}	

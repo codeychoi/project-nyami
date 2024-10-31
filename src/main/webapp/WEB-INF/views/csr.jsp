@@ -48,7 +48,9 @@
 		        <li>ㆍ토요일, 공휴일: 오늘의집 직배송 주문건 상담</li>
 		        <li>ㆍ일요일: 휴무</li>
 		    </ul>
-		    <p class="contact-number">📞 010-6286-9140</p>
+		    <div class="contact-number">
+		    	<p>📞 010-6286-9140</p>
+		   	</div>
 		    <button class="contact-button">1:1 카톡 상담하기 (준비 중)</button>
 		    <div class="email-options">
 		        <button class="email-button">이메일 문의하기</button>

@@ -56,11 +56,16 @@
             <textarea id="description" name="description" maxlength="500" placeholder="가게에 대한 간단한 설명을 입력해 주세요."></textarea>
             <div class="char-limit">0자 / 최대 500자</div>
 
+
             <label for="menuPhotos">대표 메뉴 사진 (최대 4개)</label>
-            <input type="file" id="menuPhotos" name="menuPhotos" multiple accept="image/*">
+			<input type="file" id="menuPhotos" name="menuPhotos" multiple accept="image/*">
+			<div id="menuPhotosNames" class="file-names"></div> <!-- 선택된 파일 이름 표시 -->
+            
 
             <label for="storePhotos">가게 대표 사진 (최대 2개)</label>
             <input type="file" id="storePhotos" name="storePhotos" multiple accept="image/*">
+            <div id="storePhotosNames" class="file-names"></div> <!-- 선택된 파일 이름 표시 -->
+            
 
             <div class="consent-section">
                 <label>
@@ -113,5 +118,5 @@ function openAddressPopup() {
     }).open();
 }
 </script>
-
+ <script src="js/inputfile.js"></script>
 </html>

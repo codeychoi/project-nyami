@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dining Recommendation</title>
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/css/home-category.css">
     <script src="/js/slider.js" defer></script>
     <script src="/js/userdropdown.js" defer></script>
 </head>
@@ -82,36 +82,40 @@
 			    <button onclick="moveToSlide(2)"></button>
 			    <button onclick="moveToSlide(3)"></button>
 			</div>
-		    
-		    
 		</div>
 		
-		<!-- 슬라이드 네비게이션 버튼 -->
-
-	     <div class="filter-container">
-		 	<div class="category-menu">
-                <select class="category-select">
-                    <option selected disabled>음식 종류</option>
-                    <option>한식</option>
-                    <option>중식</option>
-                    <option>양식</option>
-                </select>
-                <select class="category-select">
-                    <option selected disabled>업종 종류</option>
-                    <option>음식점</option>
-                    <option>술집</option>
-                    <option>카페</option>
-                </select>
-                <select class="category-select">
-                    <option selected disabled>테마</option>
-                    <option>혼자왔어요 혼자왔는데 뭐요</option>
-                    <option>둘이왔는데, 이제 친구를 곁들인</option>
-                    <option>커 | 플</option>
-                    <option>회식왔어요, 부장님 전 포장이요</option>
-                </select>
-            </div>
-        </div>
-            
+		<div class="category-select-container">
+		    <button class="category-select-btn" onclick="toggleCategoryPopup()">카테고리 선택</button>
+		
+		    <!-- 카테고리 선택 영역 -->
+		    <div id="categoryPopup" class="category-popup" style="display: none;">
+		        <!-- 업종 선택 -->
+		        <div class="category-step">
+		            <h3>업종 선택</h3>
+		            <button onclick="selectIndustry('음식점')">음식점</button>
+		            <button onclick="selectIndustry('카페')">카페</button>
+		            <button onclick="selectIndustry('술집')">술집</button>
+		        </div>
+		
+		        <!-- 세부 항목 선택 (업종에 따라 변동) -->
+		        <div id="selectedIndustryOptions" class="selected-industry-options" style="display: none;">
+		            <!-- 업종에 따른 세부 항목이 여기에 추가됨 -->
+		        </div>
+		
+		        <!-- 테마 선택 -->
+		        <div class="category-step" id="themeStep" style="display: none;">
+		            <h3>테마 선택</h3>
+		            <button onclick="selectTheme('솔로')">솔로</button>
+		            <button onclick="selectTheme('데이트')">데이트</button>
+		            <button onclick="selectTheme('친구')">친구</button>
+		            <button onclick="selectTheme('회식')">회식</button>
+		        </div>
+		
+		        <!-- 검색 버튼 -->
+		        <button onclick="searchStores()" class="search-btn" style="display: none;" id="searchBtn">검색</button>
+		    </div>
+		</div>
+		            
         <!-- 가게 목록 컨테이너 -->
         <div class="store-container">
             <div class="store-list">
@@ -195,4 +199,5 @@
 		</div>
     </div>
 </body>
+    <script src="js/home-category.js"></script>
 </html>
