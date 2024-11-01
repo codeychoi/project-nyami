@@ -69,23 +69,17 @@ body {
   font-weight: bold;
   cursor: pointer;
   margin-top: 10px;
+  margin-bottom : 15px;
 }
 
 .login-form button:hover {
   background-color: #c49292;
 }
 
-/* Social buttons layout */
-.social-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.social-buttons button {
-  width: 48%;
-  padding: 8px;
-  font-size: 13px;
+.naver-login-btn {
+    margin-top:10px;
+    width: 50px; /* 원하는 너비로 설정 */
+    height: auto; /* 비율에 맞게 자동 조정 */
 }
 
 .forgot-password {
@@ -337,7 +331,7 @@ body {
   background-color: #c58b8b; /* 버튼 호버 시 색상 변경 */
 }
 
-.my-symbol {
+.domain-symbol {
   margin: 0 5px; /* @ 기호와 입력 필드 및 선택 박스 간의 간격 추가 */
   font-size: 14px; /* @ 기호의 글꼴 크기 조정 */
   margin-top : 10px;
