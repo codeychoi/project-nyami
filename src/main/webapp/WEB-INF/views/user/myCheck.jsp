@@ -22,6 +22,7 @@
              <button onclick="loadLikesPage(2)">2</button>
              <button onclick="loadLikesPage(3)">3</button>
              <button onclick="loadLikesPage(4)">4</button>
+             <button onclick="loadLikesPage(4)">4</button>
              <button onclick="loadLikesPage('next')">다음</button>
          </div>
 	     <h3>리뷰</h3>
@@ -38,6 +39,7 @@
              <button onclick="loadReviewsPage(2)">2</button>
              <button onclick="loadReviewsPage(3)">3</button>
              <button onclick="loadReviewsPage(4)">4</button>
+          	 <button onclick="loadReviewsPage(4)">4</button>
              <button onclick="loadReviewsPage('next')">다음</button>
          </div>
 	</div>
