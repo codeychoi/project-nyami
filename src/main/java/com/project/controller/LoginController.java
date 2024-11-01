@@ -1,5 +1,12 @@
 package com.project.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -7,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.model.LoginBean;
+import com.project.security.Api;
 import com.project.service.LoginService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,13 +26,8 @@ public class LoginController {
 
 	private final LoginService loginService;
     
-	@Value("${naver.client.id}")
-    private String clientId;
-
-    @Value("${naver.client.secret}")
-    private String clientSecret;
-    
-    
+	private final Api api;
+	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
 		return "loginForm";
@@ -60,14 +62,49 @@ public class LoginController {
 	public String naverCallback(@RequestParam String code,
 								@RequestParam String state,
 							 
-								HttpSession session) {
+								HttpSession session) throws UnsupportedEncodingException {
+		
+		
+        String clientId = api.getNaverLoginClientKey();
+        String clientSecret = api.getNaverLoginSecret();
+        
+        String naverRedirectURI = URLEncoder.encode("http://www.localhost/naverCallback.do", "UTF-8");
+        
+        String naverApiUrl;
+        
+        naverApiUrl = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+        naverApiUrl += "client_id=" + clientId;
+        naverApiUrl += "&client_secret=" + clientSecret;
+        naverApiUrl += "&redirect_uri=" + naverRedirectURI;
+        naverApiUrl += "&code=" + code;
+        naverApiUrl += "&state=" + state;
 
-		Service.
-
+        String naverAccessToken = "";
+        String naverRefreshToken = "";
+        
 		try {
+			  URL url = new URL(naverApiUrl);
+			  // con 객체가 서버로부터의 응답을 저장
+			  HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		      con.setRequestMethod("GET");
+		      int responseCode = con.getResponseCode();
+		      System.out.print("responseCode="+responseCode);	
 			
-			
-	            
+		      BufferedReader br;
+		      
+		      if(responseCode == 200 ) {
+		    	  br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		      }else {  // 에러 발생
+		          br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		      }
+		      String inputLine;
+		      StringBuffer res = new StringBuffer();
+		      while ((inputLine = br.readLine()) != null) {
+		        res.append(inputLine);
+		      }
+		      br.close();
+		      
+		                  
 	            
 			
 		}catch(Exception e){
