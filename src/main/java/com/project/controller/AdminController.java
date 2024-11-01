@@ -2,12 +2,20 @@ package com.project.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.domain.Notice;
+import com.project.service.AdminService;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
+	private final AdminService adminService;
 	
 	// 회원관리 페이지
 	@GetMapping("/members")
@@ -39,6 +47,12 @@ public class AdminController {
 		return "adminNotice";
 	}
 	
+	// 공지사항 상세 페이지
+	@GetMapping("/notice/id")
+	public String noticeDetail() {
+		return "adminNoticeDetail";
+	}
+	
 	// 공지사항 작성폼 페이지
 	@GetMapping("/notice/write")
 	public String noticeForm() {
@@ -46,20 +60,21 @@ public class AdminController {
 	}
 	
 	// 공지사항 작성
-	@PostMapping("/notice")
-	public String writeNotice() {
+	@PostMapping("/notice/write")
+	public String writeNotice(@ModelAttribute Notice notice) {
+		adminService.insertNotice(notice);
 		return "adminNotice";
 	}
 	
-	// 이벤트 관리 페이지
-	@GetMapping("/event")
-	public String event() {
-		return "adminEvent";
+	// 공지사항 수정폼 페이지
+	@GetMapping("/notice/edit/id")
+	public String editNoticePage() {
+		return "adminNoticeEdit";
 	}
 	
-	// 이벤트 작성폼 페이지
-	@GetMapping("/event/write")
-	public String eventForm() {
-		return "adminEventForm";
+	// 공지사항 수정
+	@PostMapping("/notice/edit")
+	public String EditNotice() {
+		return "adminNotice";
 	}
 }

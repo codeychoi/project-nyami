@@ -99,7 +99,7 @@
                     <td>user1</td>
                     <td>닉네임123</td>
                     <td>user1@kakao.com</td>
-                    <td><a href="#" class="intro-link" data-intro="자기소개에 들어갈 내용을 jstl로 넣음">테스트</a></td>
+                    <td><a href="#" class="intro-link" data-intro="자기소개에 들어갈 내용을 jstl로 넣음">확인</a></td>
                     <td>2024-10-29</td>
                     <td></td>
                     <td>
@@ -121,7 +121,7 @@
                     <td>tnmm123</td>
                     <td>tnmm11</td>
                     <td>tnmm123@gmail.com</td>
-                    <td><a href="#">ㅇㅉ</a></td>
+                    <td><a href="#">확인</a></td>
                     <td>2024-01-05</td>
                     <td>2024-10-30</td>
                     <td>
@@ -143,7 +143,7 @@
                     <td>dkdlel</td>
                     <td>Nickname1</td>
                     <td>dkdlel@naver.com</td>
-                    <td><a href="#">자기소개입니다</a></td>
+                    <td><a href="#">확인</a></td>
                     <td>2012-05-05</td>
                     <td></td>
                     <td>

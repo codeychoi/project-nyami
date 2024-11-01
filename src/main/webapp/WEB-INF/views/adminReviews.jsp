@@ -44,7 +44,7 @@
                     <td>2</td>
                     <td><a href="/admin/members">2</a></td>
                     <td><a href="/admin/posts">2</a></td>
-                    <td class="star-rating">★☆☆☆☆</td>
+                    <td>1점</td>
                     <td><a href="#">ㅇㅉ</a></td>
                     <td style="color: #f44;">게시중단</td>
                 </tr>
@@ -53,7 +53,7 @@
                     <td>1</td>
                     <td><a href="/admin/members">1</a></td>
                     <td><a href="/admin/posts">3</a></td>
-                    <td class="star-rating">★★★★★</td>
+                    <td>5점</td>
                     <td><a href="#">맛있었습니다</a></td>
                     <td style="color: #5a7beb;">게시</td>
                 </tr>
