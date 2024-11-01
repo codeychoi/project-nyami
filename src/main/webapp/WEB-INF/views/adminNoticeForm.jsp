@@ -7,91 +7,9 @@
 <html lang="ko">
 <head>
     <title>작성폼</title>
-    <style>
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: inline-block;
-            margin-bottom: 4px;
-            font-weight: bold;
-            align-self: start;
-            padding: 5px;
-        }
-
-        .form-group select {
-            width: 30%;
-            padding: 5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 5px;
-        }
-
-        .form-group textarea {
-            width: 100%;
-            height: 200px;
-            resize: none;
-            padding: 5px;
-        }
-
-        /* 파일 업로드 폼 */
-        .upload-form {
-            margin-bottom: 20px;
-        }
-
-        .upload-form h2 {
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
-
-        .upload-form input[type="file"] {
-            display: none;
-        }
-
-        .custom-file-upload {
-            display: inline-block;
-            padding: 10px;
-            color: #fff;
-            background-color: #007bff;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 5px;
-        }
-
-        .upload-form button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1em;
-            color: #fff;
-            background-color: #28a745;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .upload-form button:hover {
-            background-color: #218838;
-        }
-    </style>
-    <script>
-        function showFileName() {
-            const fileInput = document.getElementById('file-upload');
-            const fileNameDisplay = document.getElementById('file-name');
-            
-            // 선택된 파일의 이름을 표시
-            if (fileInput.files.length > 0) {
-                fileNameDisplay.textContent = fileInput.files[0].name;
-            } else {
-                fileNameDisplay.textContent = '선택된 파일이 없습니다.';
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="/css/adminNotice.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/js/notice.js"></script>
 </head>
 <body>
     <!-- Main Content -->
@@ -126,7 +44,7 @@
 
             <div>
                 <button class="btn edit-btn" id="write-notice-btn">작성</button>
-                <button class="btn delete-btn" onclick="location.href='/admin/event'">돌아가기</button>
+                <button class="btn delete-btn" onclick="location.href='/admin/notice'">돌아가기</button>
             </div>
         </div>
     </div>

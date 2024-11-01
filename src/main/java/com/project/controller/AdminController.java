@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.Notice;
 import com.project.service.AdminService;
@@ -61,7 +63,8 @@ public class AdminController {
 	
 	// 공지사항 작성
 	@PostMapping("/notice/write")
-	public String writeNotice(@ModelAttribute Notice notice) {
+	@ResponseBody
+	public String writeNotice(@RequestBody Notice notice) {
 		adminService.insertNotice(notice);
 		return "adminNotice";
 	}
