@@ -16,7 +16,7 @@
     <header class="header">
         <div class="logo">
             <img src="https://okky.kr/cat-footer.svg" alt="Logo">
-            Nyy
+            관리자 페이지
         </div>
         <nav class="nav-links">
             <a href="/admin/members">회원관리</a>
@@ -24,7 +24,6 @@
             <a href="/admin/reviews">리뷰 관리</a>
             <a href="/admin/approve">게시글 승인</a>
             <a href="/admin/notice">공지사항 관리</a>
-            <a href="/admin/event">이벤트 관리</a>
         </nav>
         <div>
             ?

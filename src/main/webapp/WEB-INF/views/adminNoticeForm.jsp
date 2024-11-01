@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>공지 작성폼</title>
+    <title>작성폼</title>
     <style>
         .form-group {
             display: flex;
@@ -38,21 +38,73 @@
             resize: none;
             padding: 5px;
         }
+
+        /* 파일 업로드 폼 */
+        .upload-form {
+            margin-bottom: 20px;
+        }
+
+        .upload-form h2 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .upload-form input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .upload-form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .upload-form button:hover {
+            background-color: #218838;
+        }
     </style>
+    <script>
+        function showFileName() {
+            const fileInput = document.getElementById('file-upload');
+            const fileNameDisplay = document.getElementById('file-name');
+            
+            // 선택된 파일의 이름을 표시
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = '선택된 파일이 없습니다.';
+            }
+        }
+    </script>
 </head>
 <body>
-
     <!-- Main Content -->
     <div class="main-content">
         <h2>공지 작성</h2>
 
-        <div style="width: 400px; margin: 0 auto;">
+        <div class="form-container">
             <div class="form-group">
-                <label for="topic">주제</label>
-                <select id="topic" name="topic">
+                <label for="category">주제</label>
+                <select id="category" name="category">
                     <option value="">주제 선택</option>
                     <option value="notice">공지</option>
-                    <option value="maintainance">점검</option>
+                    <option value="event">이벤트</option>
                 </select>
             </div>
 
@@ -66,9 +118,15 @@
                 <textarea id="content" name="content" placeholder="내용을 입력하세요."></textarea>
             </div>
 
+            <div class="upload-form text-left">
+                <label for="file-upload" class="custom-file-upload">파일 선택</label>
+                <input id="file-upload" type="file" name="file" onchange="showFileName()">
+                <div class="file-name" id="file-name">선택된 파일이 없습니다.</div>
+            </div>
+
             <div>
-                <button class="btn edit-btn">작성</button>
-                <button class="btn delete-btn" onclick="location.href='/admin/notice'">돌아가기</button>
+                <button class="btn edit-btn" id="write-notice-btn">작성</button>
+                <button class="btn delete-btn" onclick="location.href='/admin/event'">돌아가기</button>
             </div>
         </div>
     </div>
