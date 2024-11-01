@@ -6,16 +6,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="css/yunyoung.css">
+  <link rel="stylesheet" href="css/login/yunyoung.css">
 </head>
 <body>
 <div class="login-container">
     
-    <button type="button"  class="gosignup-button">
-    <a href="signUp.do" class="no-underline" >
-    회원가입
+ 
+    <a href="/signUp.do" class="no-underline" > 
+    	<button type="button"  class="gosignup-button">회원가입 </button>
     </a>
-    </button>
+
     
   <div class="login-header">
     <h1 class="login-logo">Login</h1>

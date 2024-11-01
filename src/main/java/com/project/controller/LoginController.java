@@ -30,32 +30,32 @@ public class LoginController {
 	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
-		return "loginForm";
+		return "login/loginForm";
 	}
 	
 	@RequestMapping("signUp.do")
 	public String signUp() {
-		return "signUp";
+		return "login/signup";
 	}
 	
 	@RequestMapping("memberForm.do")
 	public String signForm() {
-		return "memberForm";
+		return "login/memberForm";
 	}
 	
 	@RequestMapping("ownerForm.do")
 	public String onwerForm() {
-		return "ownerForm";
+		return "login/ownerForm";
 	}
 	
-	@RequestMapping("home.do")
-	public String home() {
-		return "home";
-	}
+//	@RequestMapping("home.do")
+//	public String home() {
+//		return "loginSignUp/home";
+//	}
 	
 	@RequestMapping("findPwd.do")
 	public String findPwd() {
-		return "findPwd";
+		return "login/findPwd";
 	}
 	
 	@RequestMapping("naverCallback.do")
@@ -153,7 +153,7 @@ public class LoginController {
 		model.addAttribute("result", result);
 		model.addAttribute("login", login);
 		
-		return "loginResult";
+		return "login/loginResult";
 	}
 	
 	

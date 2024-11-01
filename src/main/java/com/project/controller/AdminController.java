@@ -22,43 +22,43 @@ public class AdminController {
 	// 회원관리 페이지
 	@GetMapping("/members")
 	public String member() {
-		return "adminMembers";
+		return "admin/adminMembers";
 	}
 	
 	// 게시글 관리 페이지
 	@GetMapping("/posts")
 	public String post() {
-		return "adminPosts";
+		return "admin/adminPosts";
 	}
 	
 	// 리뷰 관리 페이지
 	@GetMapping("/reviews")
 	public String review() {
-		return "adminReviews";
+		return "admin/adminReviews";
 	}
 	
 	// 게시글 승인 페이지
 	@GetMapping("/approve")
 	public String approve() {
-		return "adminApprove";
+		return "admin/adminApprove";
 	}
 	
 	// 공지사항 관리 페이지
 	@GetMapping("/notice")
 	public String notice() {
-		return "adminNotice";
+		return "admin/adminNotice";
 	}
 	
 	// 공지사항 상세 페이지
 	@GetMapping("/notice/id")
 	public String noticeDetail() {
-		return "adminNoticeDetail";
+		return "admin/adminNoticeDetail";
 	}
 	
 	// 공지사항 작성폼 페이지
 	@GetMapping("/notice/write")
 	public String noticeForm() {
-		return "adminNoticeForm";
+		return "admin/adminNoticeForm";
 	}
 	
 	// 공지사항 작성
@@ -66,18 +66,18 @@ public class AdminController {
 	@ResponseBody
 	public String writeNotice(@RequestBody Notice notice) {
 		adminService.insertNotice(notice);
-		return "adminNotice";
+		return "admin/adminNotice";
 	}
 	
 	// 공지사항 수정폼 페이지
 	@GetMapping("/notice/edit/id")
 	public String editNoticePage() {
-		return "adminNoticeEdit";
+		return "admin/adminNoticeEdit";
 	}
 	
 	// 공지사항 수정
 	@PostMapping("/notice/edit")
 	public String EditNotice() {
-		return "adminNotice";
+		return "admin/adminNotice";
 	}
 }

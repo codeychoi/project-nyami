@@ -34,7 +34,7 @@
                 </div>
             <% } else { %>
                 <!-- 비로그인 사용자를 위한 로그인 버튼 -->
-                <form action="/login" method="get" style="display:inline;">
+                <form action="/loginForm.do" method="get" style="display:inline;">
                     <button type="submit">로그인/회원가입</button>
                 </form>
             <% } %>
