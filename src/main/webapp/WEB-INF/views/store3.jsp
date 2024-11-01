@@ -74,8 +74,6 @@
     <% } %>
 </div>
 
-
-
 <div class="container">
     <!-- 가게 이름과 찜 버튼 -->
     <div class="store-header">
@@ -92,11 +90,14 @@
             <div class="slide"><img src="/img/store3.jpg"></div>
         </div>
         <div class="slider-nav">
-            <button aria-label="이전 슬라이드" onclick="prevSlide()">&#10094;</button>
-            <button aria-label="다음 슬라이드" onclick="nextSlide()">&#10095;</button>
+            <button aria-label="이전 슬라이드" onclick="moveToSlide(currentSlideIndex - 1)"></button>
+            <button aria-label="다음 슬라이드" onclick="moveToSlide(currentSlideIndex + 1)"></button>
         </div>
         <div class="store-info">
-            <strong>가게 주소:</strong> 서울 강남구 테헤란로7길 7 에스코빌딩 5~7층
+            <strong>가게주소:</strong> 서울 강남구 테헤란로7길 7 에스코빌딩 5~7층<br>
+            <strong>영업시간:</strong> 월 ~ 토 02:00에 영업종료<br>
+            <strong>전화번호:</strong> 02-1234-5678<br>
+            <strong>가게설명:</strong> 분위기 좋은 레스토랑<br>
         </div>
     </div>
 
@@ -149,11 +150,7 @@
     	<button class="prev-button" aria-label="이전 슬라이드">&#10094;</button>
 	    <button class="next-button" aria-label="다음 슬라이드">&#10095;</button>
 </div>
-        
     </div>
-</div>
-
-
 
     <!-- 지도 섹션 -->
     <div class="section map-section">
@@ -174,23 +171,22 @@
         <div class="pagination" id="pagination"></div>
     </div>
 
-</div>
-
-<!-- 리뷰 입력 섹션 -->
-<div class="review-input-section">
-    <h3>리뷰 작성하기</h3>
-    <form id="reviewForm">
-    <input type="text" id="reviewerName" placeholder="작성자 이름" required>
-    <select id="reviewRating">
-        <option value="5">5점 - 아주 좋아요</option>
-        <option value="4">4점 - 좋아요</option>
-        <option value="3">3점 - 보통이에요</option>
-        <option value="2">2점 - 별로에요</option>
-        <option value="1">1점 - 싫어요</option>
-    </select>
-    <textarea id="reviewText" placeholder="리뷰 내용을 입력하세요" required></textarea>
-    <button onclick="addReview()">리뷰 작성</button>
-    </form>
+	<!-- 리뷰 입력 섹션 -->
+	<div class="review-input-section">
+	    <h3>리뷰 작성하기</h3>
+	    <form id="reviewForm">
+	    <input type="text" id="reviewerName" placeholder="작성자 이름" required>
+	    <select id="reviewRating">
+	        <option value="5">5점 - 아주 좋아요</option>
+	        <option value="4">4점 - 좋아요</option>
+	        <option value="3">3점 - 보통이에요</option>
+	        <option value="2">2점 - 별로에요</option>
+	        <option value="1">1점 - 싫어요</option>
+	    </select>
+	    <textarea id="reviewText" placeholder="리뷰 내용을 입력하세요" required></textarea>
+	    <button onclick="addReview()">리뷰 작성</button>
+	    </form>
+	</div>
 </div>
 
 <!-- 외부 JS 파일 연결 -->
