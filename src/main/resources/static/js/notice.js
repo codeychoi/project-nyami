@@ -17,18 +17,31 @@ $(() => {
             content: content
         };
 
+        // 공지글 작성
         $.ajax({
-            url: '/notices',
+            url: '/admin/notice/write',
             type: 'POST',
             data: JSON.stringify(notice),
             contentType: 'application/json',
             success: () => {
                 alert('공지를 작성하였습니다.');
-                location.href = '/notices';
+                location.href = '/admin/notice';
             },
-            error: (xhr, status, error) => {
-                alert(`공지 작성 실패: ${error}`);
+            error: (error) => {
+                alert(`공지 작성 실패: ${error.responseJSON?.message || '알 수 없는 오류'}`);
             }
         });
     });
 });
+
+function showFileName() {
+    const fileInput = document.getElementById('file-upload');
+    const fileNameDisplay = document.getElementById('file-name');
+    
+    // 선택된 파일의 이름을 표시
+    if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = fileInput.files[0].name;
+    } else {
+        fileNameDisplay.textContent = '선택된 파일이 없습니다.';
+    }
+}
