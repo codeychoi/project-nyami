@@ -25,10 +25,14 @@
     <input type="text" placeholder="아이디" id="userid" name="userid">
     <input type="password" placeholder="비밀번호" id="userpwd" name="userpwd">
     <button type="submit" >로그인</button>
-    <div class="social-buttons">
-      <button type="button" >네이버 간편 로그인</button>
-      <button type="button" >구글 간편 로그인</button>
-    </div>
+
+
+	<div>
+	  <a href="https://nid.naver.com/oauth2.0/authorize?client_id=pyNA4GhE0bkNcyJChkCA&redirect_uri=http://www.localhost/naverCallback.do&response_type=code&state=STATE_STRING">
+	    <img src="/images/naver_button.png" alt="네이버 간편 로그인" class="naver-login-btn">
+	  </a>
+	</div>
+	
     <br>
     <a href="findPwd.do" class="forgot-password">비밀번호 찾기</a>
   </form>
