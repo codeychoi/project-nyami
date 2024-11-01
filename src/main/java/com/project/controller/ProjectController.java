@@ -14,8 +14,13 @@ public class ProjectController {
         return "home";
     }
     
+    @RequestMapping("store")
+    public String store() {
+    	return "store";
+    }
+    
     @GetMapping("/store2")
-    public String store(
+    public String store2(
         @RequestParam(value = "region", required = false) String region,
         @RequestParam(value = "category", required = false) String category,
         @RequestParam(value = "theme", required = false) String theme,

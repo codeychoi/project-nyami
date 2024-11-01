@@ -80,7 +80,7 @@
     <!-- 가게 이름과 찜 버튼 -->
     <div class="store-header">
         <h2>가게 이름: 냐미냐미 </h2>
-        <button id="likeButton" class="like-button" onclick="increaseLikeCount()">❤️ 찜하기 <span id="likeCount">0</span></button>
+        <button id="likeButton" class="like-button">❤️ 찜하기 <span id="likeCount">0</span></button>
     </div>
 
     <!-- 메인 사진 섹션 -->
@@ -104,7 +104,7 @@
     <div class="section menu-price-section">
         <div class="section-title">메뉴 가격 목록</div>
         <div class="menu-card">
-            <img src="img/pasta.jpg" alt="감자 사진">
+            <img src="img/pasta.jpg">
             <div class="menu-info">
                 <p class="menu-name">감자</p>
                 <p class="menu-description">감자, 간장 글레이즈, 수제 아이올리</p>
@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="menu-card">
-            <img src="img/food.jpg" alt="육회 사진">
+            <img src="img/food.jpg">
             <div class="menu-info">
                 <p class="menu-name">육회</p>
                 <p class="menu-description">1++한우, 엔다이브, 배 잼</p>
@@ -128,7 +128,7 @@
             </div>
         </div>
         <div class="menu-card">
-            <img src="img/pizza.jpg" alt="시금치 사진">
+            <img src="img/pizza.jpg">
             <div class="menu-info">
                 <p class="menu-name">시금치</p>
                 <p class="menu-description">시금치 페스토, 삼겹살, 오르끼에떼</p>
@@ -141,13 +141,15 @@
 <div class="section menu-photo-container">
     <div class="section-title">메뉴 사진 모음</div>
     <div class="menu-slider">
-        <div class="menu-slide"><img src="/"></div>
-        <div class="menu-slide"><img src="/"></div>
-        <div class="menu-slide"><img src="/"></div>
+        <div class="menu-slide"><img src="img/pasta.jpg"></div>
+        <div class="menu-slide"><img src="img/food.jpg"></div>
+        <div class="menu-slide"><img src="img/pizza.jpg"></div>
     </div>
     <div class="menu-slider-nav">
-        <button aria-label="이전 슬라이드" onclick="prevMenuSlide()">&#10094;</button>
-        <button aria-label="다음 슬라이드" onclick="nextMenuSlide()">&#10095;</button>
+    	<button class="prev-button" aria-label="이전 슬라이드">&#10094;</button>
+	    <button class="next-button" aria-label="다음 슬라이드">&#10095;</button>
+</div>
+        
     </div>
 </div>
 
@@ -177,6 +179,7 @@
 <!-- 리뷰 입력 섹션 -->
 <div class="review-input-section">
     <h3>리뷰 작성하기</h3>
+    <form id="reviewForm">
     <input type="text" id="reviewerName" placeholder="작성자 이름" required>
     <select id="reviewRating">
         <option value="5">5점 - 아주 좋아요</option>
@@ -187,8 +190,8 @@
     </select>
     <textarea id="reviewText" placeholder="리뷰 내용을 입력하세요" required></textarea>
     <button onclick="addReview()">리뷰 작성</button>
+    </form>
 </div>
-
 
 <!-- 외부 JS 파일 연결 -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=eyf1ptej0y"></script>
