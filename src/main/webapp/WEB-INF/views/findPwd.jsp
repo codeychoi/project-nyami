@@ -24,7 +24,7 @@
  
 <div class="email-form">
   <input type="text" placeholder="이메일" class="email-input">
-  <span class="at-symbol">@</span>
+  <span class="domain-symbol">@</span>
   <select class="email-select">
     <option value="naver.com">naver.com</option>
     <option value="kakao.com">kakao.com</option>
