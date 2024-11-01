@@ -59,7 +59,7 @@
 
 /* 메인 콘텐츠 스타일 */
 .main-content {
-	/* flex-grow: 1; 필요없는 코드 */
+	flex-grow: 1;
 	padding: 20px;
 	background-color: #ffffff;
 	border-radius: 8px;
