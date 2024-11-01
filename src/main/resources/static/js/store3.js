@@ -1,65 +1,37 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // 가게 메인 사진 슬라이더 설정
-    let currentSlide = 0;
+    // 메인 사진 슬라이드 기능 설정
+    const slidesContainer = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
+    const slideButtons = document.querySelectorAll('.slider-nav button');
+    let currentSlideIndex = 0;
 
-    slides.forEach((slide, index) => {
-        slide.style.position = 'absolute';
-        slide.style.left = `${index * 100}%`;
+    function moveToMainPhotoSlide(slideIndex) {
+        slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+        slideButtons.forEach(button => button.classList.remove('active'));
+        slideButtons[slideIndex].classList.add('active');
+        currentSlideIndex = slideIndex;
+    }
+
+    slideButtons.forEach((button, index) => {
+        button.addEventListener('click', function () {
+            moveToMainPhotoSlide(index);
+        });
     });
 
-    function showSlide(index) {
-        slides.forEach((slide) => {
-            slide.style.transform = `translateX(-${index * 100}%)`;
-        });
-    }
-
-    showSlide(currentSlide); // 첫 슬라이드 표시
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        showSlide(currentSlide);
-    }
-
-    // 슬라이더 버튼 이벤트 설정
-    const nextSlideButton = document.querySelector('.next-slide-button'); // 다음 버튼 선택자
-    const prevSlideButton = document.querySelector('.prev-slide-button'); // 이전 버튼 선택자
-
-    if (nextSlideButton && prevSlideButton) {
-        nextSlideButton.addEventListener('click', nextSlide); // 다음 버튼에 클릭 이벤트 연결
-        prevSlideButton.addEventListener('click', prevSlide); // 이전 버튼에 클릭 이벤트 연결
-    } else {
-        console.error('슬라이더 버튼을 찾을 수 없습니다.');
-    }
-
-    // 자동 슬라이드
-    let slideInterval = setInterval(nextSlide, 3000);
-    const slider = document.getElementById('slider');
-
-    if (slider) {
-        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 3000));
-    }
+    moveToMainPhotoSlide(0);
 
     // 메뉴 사진 슬라이더 기능 설정
-    let currentMenuSlide = 0;
     const menuSlides = document.querySelectorAll('.menu-slide');
     const totalMenuSlides = menuSlides.length;
     const menuSlider = document.querySelector('.menu-slider');
+    let currentMenuSlide = 0;
 
     function showMenuSlide(index) {
-        if (menuSlider) {
-            menuSlider.style.transform = `translateX(-${index * 100}%)`;
-        }
+        menuSlider.style.transform = `translateX(-${index * 100}%)`;
+        currentMenuSlide = index;
     }
 
-    showMenuSlide(currentMenuSlide); // 첫 메뉴 슬라이드 표시
+    showMenuSlide(currentMenuSlide);
 
     // 메뉴 슬라이더 버튼 이벤트 설정
     const nextButton = document.querySelector('.next-button');
@@ -67,37 +39,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (nextButton && prevButton) {
         nextButton.addEventListener('click', function () {
-            currentMenuSlide = (currentMenuSlide + 1) % totalMenuSlides;
-            showMenuSlide(currentMenuSlide);
+            showMenuSlide((currentMenuSlide + 1) % totalMenuSlides);
         });
 
         prevButton.addEventListener('click', function () {
-            currentMenuSlide = (currentMenuSlide - 1 + totalMenuSlides) % totalMenuSlides;
-            showMenuSlide(currentMenuSlide);
+            showMenuSlide((currentMenuSlide - 1 + totalMenuSlides) % totalMenuSlides);
         });
     } else {
         console.error('슬라이더 내비게이션 버튼을 찾을 수 없습니다.');
     }
 
     // 찜하기 버튼 기능
+    const likeButton = document.getElementById('likeButton');
     let isLiked = false;
     let likeCount = 0;
 
-    const likeButton = document.getElementById('likeButton');
     if (likeButton) {
         likeButton.addEventListener('click', () => {
-            if (isLiked) {
-                likeCount--;
-            } else {
-                likeCount++;
-            }
-
-            document.getElementById('likeCount').textContent = likeCount;
             isLiked = !isLiked;
+            likeCount += isLiked ? 1 : -1;
+            document.getElementById('likeCount').textContent = likeCount;
+            likeButton.classList.toggle('liked', isLiked);
         });
     }
 
-    // 리뷰 목록 관리
+    // 리뷰 정렬 및 렌더링 기능
     let reviews = [];
     let currentPage = 1;
     const reviewsPerPage = 5;
@@ -217,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loadReviews();
 
+    // 리뷰 작성 이벤트
     document.getElementById('reviewForm').addEventListener('submit', function (e) {
         e.preventDefault();
         addReview();
@@ -228,18 +195,27 @@ document.addEventListener('DOMContentLoaded', function () {
         const reviewText = document.getElementById('reviewText').value;
         const reviewDate = new Date().toISOString().split('T')[0];
 
-        const review = {
+        reviews.unshift({
             author: reviewerName,
             rating: reviewRating,
             content: reviewText,
             date: reviewDate
-        };
-
-        reviews.unshift(review);
+        });
         renderReviews();
         document.getElementById('reviewCount').textContent = reviews.length;
         document.getElementById('reviewForm').reset();
     }
+
+    // 리뷰 정렬 함수 전역 설정
+    window.sortReviewsByDate = function () {
+        reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderReviews();
+    };
+
+    window.sortReviewsByRating = function () {
+        reviews.sort((a, b) => b.rating - a.rating);
+        renderReviews();
+    };
 });
 
 // 네이버 지도 초기화
