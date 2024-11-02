@@ -40,6 +40,9 @@ a:hover {
 .nav-links {
     display: flex;
     gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .nav-links a {
     text-decoration: none;
