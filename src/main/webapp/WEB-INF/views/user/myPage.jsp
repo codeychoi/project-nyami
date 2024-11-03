@@ -43,10 +43,11 @@
         <div class="content">
             <!-- 사이드바: 프로필 사진과 이름 표시 -->
             <div class="sidebar">
-                <div class="profile-pic"></div>
+                <div class="profile-pic" onclick="document.getElementById('fileInput').click()">
+                	<span class="profile-overlay">프로필 변경</span>
+                </div>
                 <div class="profile-name">야미</div>
-                <br><br>
-                <div><button class="upload-button">사진 업로드</button></div>
+                <input type="file" id="fileInput" style="display:none">
             </div>
 
             <!-- 메인 콘텐츠 부분 -->
