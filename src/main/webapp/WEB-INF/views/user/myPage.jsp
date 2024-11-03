@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>페이지 이름</title>
-    <link rel="stylesheet" href="css/mypage/myPageStyles.css">
     <link rel="stylesheet" href="css/commonStyles.css">
+    <link rel="stylesheet" href="css/mypage/myPageStyles.css">
     <script>
         function openTab(event, tabName) {
             var i, tabcontent, tablinks;
