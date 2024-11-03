@@ -80,4 +80,9 @@ public class AdminController {
 	public String editNotice() {
 		return "/admin/adminNotice";
 	}
+	
+	@GetMapping("/a")
+	public String a() {
+		return "/admin/registerStore";
+	}
 }

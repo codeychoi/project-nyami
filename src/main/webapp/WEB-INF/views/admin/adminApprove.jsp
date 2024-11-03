@@ -35,7 +35,6 @@
                     <th>가게 이름</th>
                     <th>주소</th>
                     <th>전화번호</th>
-                    <th>메뉴</th>
                     <th>상태</th>
                 </tr>
             </thead>
@@ -45,7 +44,6 @@
                     <td><a href="#">모수</a></td>
                     <td>서울특별시 용산구</td>
                     <td>02-111-1111</td>
-                    <td><a href="#">확인</a></td>
                     <td>대기</td>
                 </tr>
             </tbody>
