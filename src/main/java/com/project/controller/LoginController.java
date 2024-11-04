@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.model.LoginBean;
+import com.project.domain.LoginDomain;
 import com.project.security.Api;
 import com.project.service.LoginService;
 
@@ -114,10 +114,6 @@ public class LoginController {
 		
 		
 		return "naverCallback";
-	
-	
-	
-	
 	}
 	
 	
@@ -126,12 +122,12 @@ public class LoginController {
 
 	// 로그인
 	@RequestMapping("login_ok.do")
-	public String login_ok(@ModelAttribute LoginBean login,
+	public String login_ok(@ModelAttribute LoginDomain login,
 						   HttpSession session,
 						   Model model) {
 		
 		//입력한 아이디의 특정 유저 정보를 조회해서 db 객체에 저장
-		LoginBean db = loginService.getUser(login.getUserid());
+		LoginDomain db = loginService.getUser(login.getUserid());
 		
 		int result = 0;
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.domain.Notice;
+import com.project.domain.NoticeDomain;
 import com.project.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -64,7 +64,7 @@ public class AdminController {
 	// 공지사항 작성
 	@PostMapping("/notice/write")
 	@ResponseBody
-	public String writeNotice(@RequestBody Notice notice) {
+	public String writeNotice(@RequestBody NoticeDomain notice) {
 		adminService.insertNotice(notice);
 		return "admin/adminNotice";
 	}
