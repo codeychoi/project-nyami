@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-Hello World
-
+${accessToken }
 </body>
 </html>

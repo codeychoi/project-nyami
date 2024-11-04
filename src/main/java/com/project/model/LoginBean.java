@@ -21,5 +21,7 @@ public class LoginBean {
 	private String status;
 	private Timestamp join_date;
 	private Timestamp leave_date;
+	
+	private String accessToken;
 
 }
