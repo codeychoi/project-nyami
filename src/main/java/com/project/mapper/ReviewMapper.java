@@ -5,19 +5,19 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.project.domain.Review;
-import com.project.domain.ReviewDomain;
 import com.project.dto.RequestData;
 import com.project.dto.ReviewMemberDTO;
+import com.project.dto.ReviewWithNicknameDTO;
 
 
 @Mapper
 public interface ReviewMapper {
 
 	// 리뷰 조회
-	public List<ReviewDomain> getReviewsByStoreId(long storeId);
+	public List<ReviewWithNicknameDTO> getReviewsByStoreId(long storeId);
 
 	// 리뷰 삽입
-	void insertReview(ReviewDomain newReview);
+	void insertReview(Review newReview);
 	
 	// 리뷰 조회
 	List<Review> selectReviews(
@@ -31,7 +31,6 @@ public interface ReviewMapper {
 	
 	// 리뷰 삭제 (포인트 추가작업에 따른 로직)
     void deleteReview(@Param("reviewId") Long reviewId);
-
 
 	// 총 리뷰 개수
 	long countReviews(RequestData requestData);
@@ -53,8 +52,8 @@ public interface ReviewMapper {
     int updateReviewStatusToHidden(@Param("id") long id);
     
     
-    ReviewDomain findReviewByUserAndStore(@Param("memberId") Long memberId, @Param("storeId") Long storeId);
+    Review findReviewByUserAndStore(@Param("memberId") Long memberId, @Param("storeId") Long storeId);
 
 	// 리뷰 수정
-	void updateReview(ReviewDomain reviewDomain);
+	void updateReview(Review Review);
 }

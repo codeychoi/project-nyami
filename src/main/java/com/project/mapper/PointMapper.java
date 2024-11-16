@@ -1,14 +1,23 @@
 package com.project.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
-import com.project.domain.PointDomain;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.project.domain.Point;
 
 
 @Mapper
 public interface PointMapper {
 	
 	// 포인트 지급
-	void insertPoint(PointDomain newPoint);
+	void insertPoint(Point newPoint);
+	
+	// 포인트 검색(Member_id)
+    List<Point> findPointByUser(@Param("memberId") Long memberId);
+    
+    //
+    int getTotalPoints(Long memberId);
 
 }

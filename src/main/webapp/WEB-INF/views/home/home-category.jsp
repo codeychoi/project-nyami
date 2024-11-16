@@ -4,16 +4,20 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<%@ include file="/WEB-INF/views/templates/head.jsp" %> <!-- head -->
-
 <head>
+    <meta charset="UTF-8">
+    <title>Dining Recommendation</title>
     <link rel="stylesheet" type="text/css" href="/css/home/home-category.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/home/slider.js" defer></script>
+    <script src="/js/home/userdropdown.js" defer></script>
+    <script src="/js/home/home-category.js"></script>
+    
 </head>
-
 <body>
-	<jsp:include page="/WEB-INF/views/templates/header.jsp" /> <!-- header -->
+    <!-- 헤더 섹션 -->
+    <jsp:include page="/WEB-INF/views/templates/header.jsp" /> <!-- header -->
 
-    <main class="content"> <!-- main content start -->
 
         <!-- 위치 및 카테고리 드롭다운 메뉴 -->
         <div class="filter-container">
@@ -81,24 +85,24 @@
 			<!-- 게시글 정렬 -->
 			<div class="orderby-criteria">
 				<select id="orderOptions" onchange="orderOptionChoice()">
-					<option value="recent" id="recent">최신순</option>
+					<option value="" >정렬</option>
 					<option value="likes" id="likes">좋아요순</option>
-					<option value="comments" id="comments">댓글순</option>
+					<option value="reviews" id="reviews">댓글순</option>
+					<option value="views" id="views">조회순</option>
 				</select>
 			</div>
 
 
+	        <!-- 가게 목록 컨테이너 -->
+	        <div class="store-container">
+			    <div id="store-list-container" class="store-list">
+			        <jsp:include page="store_list.jsp" />
+			    </div>
+			</div>
 		
-       
-        <!-- 가게 목록 컨테이너 -->
-        <div class="store-container">
-		    <div id="store-list-container" class="store-list">
-		        <jsp:include page="store_list.jsp" />
-		    </div>
-		</div>
-    </main> <!-- main content end -->
-
-	<jsp:include page="/WEB-INF/views/templates/footer.jsp" /> <!-- footer -->
+		<!-- 푸터 섹션 -->
+		<jsp:include page="/WEB-INF/views/templates/footer.jsp" /> <!-- footer -->
+</body>
 
 	<script type="text/javascript">
 	    // JSP 표현식으로 user_ID 가져오기

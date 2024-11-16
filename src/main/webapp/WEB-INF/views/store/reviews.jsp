@@ -8,11 +8,6 @@
 
 <head>
     <title>리뷰 목록</title>
-    <%
-        // 세션에서 user_ID 및 user_nickname 가져오기
-        Long userId = (Long) session.getAttribute("user_ID");
-        String nickname = (String) session.getAttribute("user_nickname");
-    %>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <script>
@@ -71,10 +66,12 @@
     function renderReviews(reviews, userReviewIndex) {
 	    var reviewList = $('#review-list');
 	    reviewList.empty();
-	    console.log("asd: ", reviews)
+	    console.log("리뷰데이터: ", reviews)
 	
 	    $.each(reviews, function(index, review) {
 	    	if(review.status === 'active') {
+	    		console.log("review.memberId: ", review.memberId);
+	    		console.log("userId: ", userId);
 		        var reviewItem = '<div class="review-item">'
 		            + '<div class="review-header">'
 		            + '<span class="review-author">' + review.nickname + '</span>'
@@ -97,8 +94,9 @@
 	            }
 		
 		        // 수정, 삭제 버튼 추가
-		        if (review.memberId != null && review.memberId === userId) { // 본인이 작성한 리뷰일 경우에만 삭제 버튼 표시
+		        if (review.memberId != null && review.memberId.toString() === userId) { // 본인이 작성한 리뷰일 경우에만 삭제 버튼 표시
 		            console.log("review.memberId ", review.memberId);
+		        	console.log("review id: ", review.id)
 		            reviewItem += '<button class="edit-review-button" onclick="editReview(' + review.id + ', \'' + review.content + '\')">수정</button>';
 		            reviewItem += '<button class="delete-review-button" onclick="hiddenReview(' + review.id + ', ' + review.memberId + ')">삭제</button>';
 		        }

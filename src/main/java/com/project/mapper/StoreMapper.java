@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.project.domain.StoreDomain;
 import com.project.dto.RequestData;
 import com.project.domain.MemberLike;
 import com.project.domain.Menu;
@@ -17,7 +16,7 @@ import com.project.domain.Store;
 public interface StoreMapper{
 	
 	// 가게정보 가져오기
-    StoreDomain getStoreDetailById(long store_ID);
+    Store getStoreDetailById(long store_ID);
     
     // 메뉴정보 가져오기
     List<Menu> getMenuById(long storeId);
@@ -56,7 +55,6 @@ public interface StoreMapper{
 	
 	List<Store> findAllStores();
 	
-	
     List<Store> findStoresByLocation(String location);
 
     // 찜 좋아요 수 가져오기
@@ -71,5 +69,13 @@ public interface StoreMapper{
             @Param("subCategory") String subCategory,
             @Param("themeArray") List<String> themeArray
         );
+    
+    List<Store> findStoresByOrder(
+            @Param("order") String order,
+            @Param("location") String location,
+            @Param("industry") String industry,
+            @Param("subCategory") String subCategory,
+            @Param("themeArray") List<String> themeArray
+    );
     
 }
