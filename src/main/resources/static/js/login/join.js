@@ -169,8 +169,11 @@ $(document).ready(function() {
 			data: { userEmail: fullEmail, code: verificationCode },
 			success: function(response) {
 				$('#verificationMessage').text(response).css('color', 'green');  // 인증 성공 메시지
-				isEmailVerified = true;
-				verifiedEmail = fullEmail; // 인증된 이메일 저장
+				if(response == "인증에 성공했습니다."){
+					verifiedEmail = fullEmail; // 인증된 이메일 저장
+					isEmailVerified = true;
+				}
+				
 			},
 			error: function(error) {
 				$('#verificationMessage').text("인증 확인에 실패했습니다. 다시 시도해 주세요.").css('color', 'red');
