@@ -34,7 +34,13 @@ $(() => {
     // 리뷰 데이터를 팝업에 렌더링
     function renderReviewPopup(content, image, storeName, nickname) {
         const imageLinks = image.split(',');
-        const imageDOM = imageLinks.map(link => `<img src="/images/${link.trim()}" style="margin: 20px auto; width: 200px;" alt="Review Image" />`).join('');
+
+        const imageDOM = (imageLinks != '')
+            ? imageLinks.map(link => 
+                `<img src="/upload/${link.trim()}" style="margin: 20px auto; width: 500px;" alt="Review Image" />`
+            ).join('')
+            : '';
+
 
         const reviewDOM = `
             <div class="container">
@@ -43,6 +49,7 @@ $(() => {
                 <div style="display: flex; flex-direction: column;">
                     ${imageDOM}
                 </div>
+                <div style="border-bottom: 1px solid #bbb; margin: 30px 0;"></div>
                 <span style="word-wrap: break-word;">${content}</span>
             </div>
         `;
