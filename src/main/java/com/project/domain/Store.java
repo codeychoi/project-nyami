@@ -2,11 +2,9 @@ package com.project.domain;
 
 import org.apache.ibatis.type.Alias;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Alias("store")
 public class Store {
     private Long id;
@@ -25,4 +23,6 @@ public class Store {
     private String storeDescription;
     private String postStatus;
     private String enrollStatus;
+    private String ceoName;
+  
 }

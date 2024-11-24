@@ -4,11 +4,12 @@
 
 <!DOCTYPE html>
 <html>
-<%@ include file="/WEB-INF/views/templates/head.jsp" %> <!-- head -->
 
 <head>
     <title>리뷰 목록</title>
+    
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<jsp:include page="/WEB-INF/views/templates/head.jsp" /> <!-- header -->
 
 <script>
 
@@ -47,14 +48,23 @@
 	            } else {
 	                console.log("No reviews available");
 	            }	
+	            
+	            // active 상태의 리뷰만 필터링
+	            var activeReviews = reviews.filter(function(review) {
+	                return review.status === 'active';
+	            });
+	            
+	            
 	            // userReviewIndex를 여기서 구합니다.
 	            var userReviewIndex = reviews.findIndex(function(review) {
 	                return review.memberId != null && review.memberId === userId;
 	            });
 	
 	            // renderReviews 함수 호출 시 두 번째 인자로 전달합니다.
-	            renderReviews(reviews, userReviewIndex);
-	            $('#reviewCount').text(reviews.length);
+	            renderReviews(activeReviews, userReviewIndex);
+	            
+	         	// active 상태 리뷰의 개수를 표시
+	            $('#reviewCount').text(activeReviews.length);
 	        },
 	        error: function(xhr, status, error) {
 	            console.error('리뷰 데이터를 불러오는 중 오류가 발생했습니다: ', error);
@@ -62,6 +72,11 @@
 	    });
 	}
 
+  	//10보다 작은 숫자에 0을 추가하는 함수
+    function addZero(number) {
+        return number < 10 ? "0" + number : number;
+    }
+    
     // 리뷰 데이터를 화면에 렌더링하는 함수
     function renderReviews(reviews, userReviewIndex) {
 	    var reviewList = $('#review-list');
@@ -72,11 +87,17 @@
 	    	if(review.status === 'active') {
 	    		console.log("review.memberId: ", review.memberId);
 	    		console.log("userId: ", userId);
+	    		
+		        // review.createdAt를 연, 월, 일 시분초로 변환
+		        var date = new Date(review.createdAt);
+		        var formattedDate = date.getFullYear() + "-" + addZero(date.getMonth() + 1) + "-" + addZero(date.getDate()) +
+	              " " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()) + ":" + addZero(date.getSeconds());
+	              
 		        var reviewItem = '<div class="review-item">'
 		            + '<div class="review-header">'
 		            + '<span class="review-author">' + review.nickname + '</span>'
 		            + '<br>'
-		            + '<span class="review-date">' + review.createdAt + '</span>'
+		            + '<span class="review-date">' + formattedDate + '</span>'
 		            + '<div class="review-rating">' + generateStars(review.score) + '</div>'
 		            + '</div>'
                     + '<div id="review-content-' + review.id + '" class="review-content">' + review.content + '</div>';
@@ -94,7 +115,7 @@
 	            }
 		
 		        // 수정, 삭제 버튼 추가
-		        if (review.memberId != null && review.memberId.toString() === userId) { // 본인이 작성한 리뷰일 경우에만 삭제 버튼 표시
+		        if (review.memberId != null && review.memberId === memberId) { // 본인이 작성한 리뷰일 경우에만 삭제 버튼 표시
 		            console.log("review.memberId ", review.memberId);
 		        	console.log("review id: ", review.id)
 		            reviewItem += '<button class="edit-review-button" onclick="editReview(' + review.id + ', \'' + review.content + '\')">수정</button>';

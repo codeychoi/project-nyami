@@ -2,32 +2,35 @@ package com.project.controller;
 
 import java.util.List;
 
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.project.domain.Event;
 import com.project.domain.Member;
 import com.project.domain.Menu;
 import com.project.domain.Notice;
+import com.project.domain.Point;
 import com.project.domain.Review;
 import com.project.domain.Store;
 import com.project.dto.EventDTO;
 import com.project.dto.NoticeDTO;
 import com.project.dto.Pagination;
 import com.project.dto.RequestData;
+import com.project.dto.ReviewDTO;
 import com.project.dto.ReviewMemberDTO;
+import com.project.dto.StoreDetailDTO;
+import com.project.dto.StoreWithDetailDTO;
 import com.project.service.AdminService;
+import com.project.service.PointService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,7 +38,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
+	
 	private final AdminService adminService;
+	private final PointService pointService;
 	
 	// 회원관리 페이지
 	@GetMapping("/members")
@@ -46,7 +51,7 @@ public class AdminController {
 		return "admin/adminMembers";
 	}
 	
-	// 회원 상세정보 출력
+	// 회원 상세정보 조회
 	@GetMapping("/members/{id}")
 	@ResponseBody
 	public Member memberDetail(@PathVariable("id") long id) {
@@ -56,8 +61,10 @@ public class AdminController {
 	// 회원 차단
 	@PostMapping("/members/{id}/block")
 	@ResponseBody
-	public ResponseEntity<String> blockMember(@PathVariable("id") long id) {
-		adminService.blockMember(id);
+	public ResponseEntity<String> blockMember(
+			@PathVariable("id") long id,
+			@RequestParam("banTime") int banTime) {
+		adminService.blockMember(id, banTime);
 		
 		return ResponseEntity.ok("inactive");
 	}
@@ -78,6 +85,20 @@ public class AdminController {
 		model.addAttribute("pagination", stores);
 		
 		return "admin/adminStores";
+	}
+	
+	// 가게 조회
+	@GetMapping("/stores/{id}")
+	@ResponseBody
+	public StoreDetailDTO storeDetail(@PathVariable("id") long id) {
+		return adminService.selectStoreById(id);
+	}
+	
+	// 가게 찜 개수 조회
+	@GetMapping("/stores/{id}/like")
+	@ResponseBody
+	public long selectlikeCount(@PathVariable("id") long id) {
+		return adminService.selectLikeCountById(id);
 	}
 	
 	// 가게 게시글 게시중단
@@ -108,17 +129,18 @@ public class AdminController {
 	// 리뷰 관리 페이지
 	@GetMapping("/reviews")
 	public String reviews(RequestData requestData, Model model) {
-		Pagination<Review> reviews = adminService.selectReviews(requestData);
+		Pagination<ReviewDTO> reviews = adminService.selectReviews(requestData);
 		model.addAttribute("pagination", reviews);
 		
 		return "admin/adminReviews";
 	}
 	
 	// 상세리뷰 조회
-	@GetMapping("/reviews/detail/{id}")
+	@GetMapping("/reviews/detail")
 	@ResponseBody
-	public ResponseEntity<Review> detailReview(@PathVariable("id") long id) {
-		Review review = adminService.selectDetailReview(id);
+	public ResponseEntity<Review> detailReview(@RequestParam("nickname") String nickname,
+											   @RequestParam("storeName") String storeName) {
+		Review review = adminService.selectDetailReview(nickname, storeName);
 		
 		return ResponseEntity.ok(review);
 	}
@@ -153,12 +175,46 @@ public class AdminController {
 	// 게시글 승인 페이지
 	@GetMapping("/approval")
 	public String showApprovalPage(RequestData requestData, Model model) {
-	    Pagination<Store> enrolledStores = adminService.selectEnrolledStores(requestData);
-	    model.addAttribute("pagination", enrolledStores);
+	    Pagination<Store> stores = adminService.selectStores(requestData);
+	    model.addAttribute("pagination", stores);
+	    model.addAttribute("enrollStatus", requestData.getEnrollStatus());
 
 	    return "admin/adminApproval";
 	}
+	
+	// 승인 페이지 폼
+	@GetMapping("/approval/{id}")
+	@ResponseBody
+	public StoreWithDetailDTO storeDetailWithLocation(@PathVariable("id") long id) {
+		return adminService.selectStoreWithDetailById(id);
+	}
+	
+	// 게시글 검토
+	@PostMapping("/approval/{id}/read")
+	@ResponseBody
+	public ResponseEntity<String> updateReadStatus(@PathVariable("id") long id) {
+		adminService.updateReadStatus(id);
+		
+		return ResponseEntity.ok("read");
+	}
+	
+	// 게시글 승인
+	@PostMapping("/approval/{id}/enroll")
+	@ResponseBody
+	public ResponseEntity<String> enrollStore(@PathVariable("id") long id) {
+		adminService.enrollStore(id);
+		
+		return ResponseEntity.ok("enrolled");
+	}
 
+	// 게시글 반려
+	@PostMapping("/approval/{id}/withdraw")
+	@ResponseBody
+	public ResponseEntity<String> withdrawStore(@PathVariable("id") long id) {
+		adminService.withdrawStore(id);
+		
+		return ResponseEntity.ok("withdrawal");
+	}
 	
 	// 공지사항 관리 페이지
 	@GetMapping("/notice")
@@ -297,4 +353,43 @@ public class AdminController {
 		
 		return ResponseEntity.ok("active");
 	}
+	
+	// 에러 페이지
+	@GetMapping("/accessDenied")
+	public String errorPage() {
+		return "admin/accessDenied";
+	}
+	// 포인트 페이지
+		@GetMapping("/points")
+		public String points(RequestData requestData, Model model) {
+			Pagination<Point> points = pointService.selectPoints(requestData);
+			model.addAttribute("pagination", points);
+			
+			return "admin/adminPoints";
+		}
+		
+		@RequestMapping("/searchPoints")
+		public String searchPoints(@RequestParam("column") String column,
+		                           @RequestParam("keyword") String keyword,
+		                           Model model) {
+		    // 컬럼 이름 검증 및 매핑
+		    if (!"member_id".equals(column) && !"nickname".equals(column)) {
+		        throw new IllegalArgumentException("Invalid column provided: " + column);
+		    }
+
+		    // 조인된 컬럼 이름으로 변환
+		    String mappedColumn = "member_id".equals(column) ? "m.member_id" : "m.nickname";
+		    // 검색 서비스 호출
+		    List<Point> points = pointService.searchPoints(mappedColumn, keyword);
+
+		    // 검색 결과를 모델에 추가 (기존 데이터와 충돌을 방지하기 위해 이름 변경)
+		    model.addAttribute("searchResults", points);
+
+		    // 로그 출력
+		    System.out.println("Search request - column: " + mappedColumn + ", keyword: " + keyword);
+
+		    return "admin/adminPoints"; // 반환할 뷰
+		}
+		
+	
 }

@@ -45,7 +45,9 @@ public class NoticeService {
 		int startRow = pageRequest.getSize() * (pageRequest.getPage()-1) + 1 ;
 		int endRow = pageRequest.getSize() * (pageRequest.getPage());
 		List<Event> list = noticeMapper.getEventList(startRow,endRow,pageRequest.getStatus(),pageRequest.getCategory());
-		
+		for(Event a : list) {
+			System.out.println(a);
+		}
 		// 총 게시물 갯수 가져오기 and 총 페이지 갯수 계산
 		int countList = noticeMapper.getEventCountList(pageRequest.getStatus(),pageRequest.getCategory());
 		int totalPage =(int)Math.ceil((double)countList / pageRequest.getSize());
@@ -62,9 +64,6 @@ public class NoticeService {
 		return new PageResponse<>(list,pageRequest.getPage(),totalPage,startPage,endPage,pageRequest.getCategory(),pageRequest.getSearchType(),pageRequest.getSearchKeyword());
 	}
 
-	public Event getEvent(Long id) {
-		return noticeMapper.getEvent(id);
-	}
 
 	public Notice getNotice(Long id) {
 		return noticeMapper.getNotice(id);
@@ -76,4 +75,21 @@ public class NoticeService {
 		return noticeMapper.getNextNotice(id);
 	}
 	
+	public Event getEvent(Long id) {
+		return noticeMapper.getEvent(id);
+	}
+	public Event getPreEvent(Long id) {
+		return noticeMapper.getPreEvent(id);
+	}
+	public Event getNextEvent(Long id) {
+		return noticeMapper.getNextEvent(id);
+	}
+
+	public int updateNoticeViews(Notice notice) {
+		return noticeMapper.updateNoticeViews(notice);
+	}
+	
+	public int updateEventViews(Event event) {
+		return noticeMapper.updateEventViews(event);
+	}
 }

@@ -73,18 +73,16 @@
 	</select>
 
 	<select id="getEventList" resultType="event">
-		select * from (
-			select event.* , ROWNUM AS rn 
-			from event 
-			where status = #{status}
-			
-			<!-- category 값이 있을 때만 조건 추가 -->
-			<if test="category != null and category != ''">
-				and category = #{category}
-			</if> 
-			and ROWNUM &lt;= #{endRow}   <!-- <= 부분을 &lt;= 로 변경 -->
-			)
-		 	where rn &gt;= #{startRow} <!-- > 부분을 &gt; 로 변경 -->
+    SELECT *
+    FROM (
+        SELECT event.*, ROW_NUMBER() OVER (ORDER BY created_at DESC, id ASC) AS rn
+        FROM event
+        WHERE status = #{status}
+        <if test="category != null and category != ''">
+            AND category = #{category}
+        </if>
+    ) subquery
+    WHERE rn BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="getNoticeCountList" resultType="int">
@@ -112,9 +110,6 @@
 		</if>
 	</select>
 	
-	<select id="getEvent" resultType="event" parameterType="Long">
-		select * from event where id = #{id}
-	</select>
 	
 	<select id="getNotice" resultType="notice" parameterType="Long">
 		select * from notice where id = #{id}
@@ -136,6 +131,32 @@
 		(
 			select id,title
 			from notice
+			where id &gt; #{id}
+			order by created_at asc
+		)
+		where rownum = 1
+	</select>
+
+	<select id="getEvent" resultType="event" parameterType="Long">
+		select * from event where id = #{id}
+	</select>
+	
+	<select id="getPreEvent" resultType="event" parameterType="Long">
+		select * from
+		(
+			select id,title
+			from event
+			where id &lt; #{id}
+			order by created_at desc
+		)
+		where rownum = 1
+	</select>
+	
+	<select id="getNextEvent" resultType="event" parameterType="Long">
+		select * from
+		(
+			select id,title
+			from event
 			where id &gt; #{id}
 			order by created_at asc
 		)
@@ -211,4 +232,18 @@
             </if>
     	</where>
 	</select>
+	
+	<update id="updateNoticeViews" parameterType="notice">
+		update notice
+		set
+		views = #{views}
+		where id = #{id}
+	</update>
+	
+	<update id="updateEventViews" parameterType="event">
+		update event
+		set
+		views = #{views}
+		where id = #{id}
+	</update>
 </mapper>

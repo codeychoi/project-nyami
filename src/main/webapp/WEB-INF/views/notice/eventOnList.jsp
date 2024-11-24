@@ -1,27 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이벤트 페이지</title>
+<html>
+<%@ include file="/WEB-INF/views/templates/head.jsp" %>
 <link rel="stylesheet" href="/css/notice/commonStyles.css">
 <link rel="stylesheet" href="/css/notice/noticeCommonStyles.css">
 <link rel="stylesheet" href="/css/notice/eventListStyles.css">
-</head>
 <body>
-	<!-- 상단바 -->
-	<header class="navbar">
-		<div class="navbar-left">
-			<a class="navbar-logo">냐미</a>
-		</div>
-		<div class="navbar-right">
-			<a href="#" class="icon">로그아웃</a> 
-			<a href="/" class="icon">홈</a>
-		</div>
-	</header>
+	<%@ include file="/WEB-INF/views/templates/header.jsp" %>
 	<nav class="navbar-menu">
 		<a href="/noticeList" class="menu-item">공지사항</a> 
 		<a href="/eventOnList" class="menu-item active">이벤트</a>
@@ -41,10 +29,10 @@
 		<div class="event-items">
 			<c:forEach var = "event" items = "${eventPageResponse.list}">
 				<a href="/event/${event.id}" class="event-item">
-					<img src="images/image2.png">
+					<img src="${event.eventImage}">
                 	<h3>${event.title}</h3>
-                	<span>${event.startDate} ~ ${event.endDate}</span>
-                	<span>${event.views}</span>
+                	<span><fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" /> ~ <fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" /></span>
+                	<span>조회수 ${event.views}</span>
                 	<span class="category">${event.category}</span>
                 </a>	
 			</c:forEach>
@@ -63,5 +51,6 @@
         	</c:if>
         </div>
 	</div>
+<%@ include file="/WEB-INF/views/templates/footer.jsp" %>
 </body>
 </html>

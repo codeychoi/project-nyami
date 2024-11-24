@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.domain.Event;
@@ -21,7 +22,10 @@ import com.project.dto.EventDTO;
 import com.project.dto.NoticeDTO;
 import com.project.dto.Pagination;
 import com.project.dto.RequestData;
+import com.project.dto.ReviewDTO;
 import com.project.dto.ReviewMemberDTO;
+import com.project.dto.StoreDetailDTO;
+import com.project.dto.StoreWithDetailDTO;
 import com.project.mapper.MemberMapper;
 import com.project.mapper.MenuMapper;
 import com.project.mapper.NoticeMapper;
@@ -33,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AdminService {
+	
 	private final NoticeMapper noticeMapper;
 	private final MemberMapper memberMapper;
 	private final StoreMapper storeMapper;
@@ -59,8 +64,8 @@ public class AdminService {
 	}
 
 	// 회원 차단
-	public void blockMember(long id) {
-		memberMapper.blockMember(id);
+	public void blockMember(long id, int banTime) {
+		memberMapper.blockMember(id, banTime);
 	}
 	
 	// 회원 차단해제
@@ -82,6 +87,38 @@ public class AdminService {
 		return new Pagination<>(stores, page, size, totalCount);
 	}
 	
+	// 가게 조회
+	public StoreDetailDTO selectStoreById(long id) {
+		StoreDetailDTO store = storeMapper.selectStoreById(id);
+		List<Menu> menus = storeMapper.selectMenuById(id);
+		try {
+			store.setMenuImage(menus.get(0).getMenuImage());
+			store.setMenuDescription(menus.get(0).getMenuDescription());
+			store.setMenuName(menus.get(0).getMenuName());
+			store.setMenuPrice(menus.get(0).getMenuPrice());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return store;
+	}
+	
+	// 가게 찜 개수 조회
+	public long selectLikeCountById(long id) {
+		return storeMapper.getLikeCountByStoreId(id);
+	}
+	
+	// 카테고리가 포함된 가게 데이터
+	public StoreWithDetailDTO selectStoreWithDetailById(long id) {
+		StoreWithDetailDTO store = storeMapper.selectStoreWithDetailById(id);
+		if(storeMapper.selectMenuImagesById(id).size() != 0) {
+			store.setMenuImage(storeMapper.selectMenuImagesById(id).get(0));
+		}
+		store.setThemes(storeMapper.selectThemesById(id));
+		
+		return store;
+	}
+	
 	// 가게 게시글 게시중단
 	public void inactivateStore(long id) {
 		storeMapper.inactivateStore(id);
@@ -91,6 +128,23 @@ public class AdminService {
 	public void reactivateStore(long id) {
 		storeMapper.reactivateStore(id);
 	}
+	
+	// 게시글 검토
+	public void updateReadStatus(long id) {
+		storeMapper.updateReadStatus(id);
+	}
+	
+	// 게시글 승인
+	@Transactional
+	public void enrollStore(long id) {
+		storeMapper.enrollStore(id);
+		storeMapper.reactivateStore(id);
+	}
+	
+	// 게시글 반려
+	public void withdrawStore(long id) {
+		storeMapper.withdrawStore(id);
+	}
 
 	// 메뉴 조희
 	public List<Menu> selectMenus(long storeId) {
@@ -98,7 +152,7 @@ public class AdminService {
 	}
 
 	// 리뷰 조회
-	public Pagination<Review> selectReviews(RequestData requestData) {
+	public Pagination<ReviewDTO> selectReviews(RequestData requestData) {
 		int page = requestData.getPage();
 		int size = requestData.getSize();
 		
@@ -106,14 +160,14 @@ public class AdminService {
 		int end = start + size - 1;
 		long totalCount = reviewMapper.countReviews(requestData);
 		
-		List<Review> reviews = reviewMapper.selectReviews(start, end, requestData);
+		List<ReviewDTO> reviews = reviewMapper.selectReviews(start, end, requestData);
 		
 		return new Pagination<>(reviews, page, size, totalCount);
 	}
 	
 	// 특정 리뷰 확인
-	public Review selectDetailReview(long id) {
-		return reviewMapper.selectReviewById(id);
+	public Review selectDetailReview(String nickname, String storeName) {
+		return reviewMapper.selectReviewByNicknameAndStoreName(nickname, storeName);
 	}
 	
 	// 작성자 정보가 추가된 상세리뷰 조회
@@ -129,20 +183,6 @@ public class AdminService {
 	// 리뷰 재게시 
 	public void reactivateReview(long id) {
 		reviewMapper.reactivateReview(id);
-	}
-	
-	// 게시 신청한 가게 조회
-	public Pagination<Store> selectEnrolledStores(RequestData requestData) {
-		int page = requestData.getPage();
-		int size = requestData.getSize();
-		
-		int start = (page - 1) * size + 1;
-		int end = start + size - 1;
-		long totalCount = storeMapper.countEnrolledStores(requestData);
-		
-		List<Store> enrolledStores = storeMapper.selectEnrolledStores(start, end, requestData);
-		
-		return new Pagination<>(enrolledStores, page, size, totalCount);
 	}
 
 	// 공지 조회
@@ -188,7 +228,11 @@ public class AdminService {
 	    Notice notice = new Notice();
 	    notice.setTitle(noticeDTO.getTitle());
 	    notice.setContent(noticeDTO.getContent());
-	    notice.setNoticeImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    if(fileName != null) {
+	    	notice.setNoticeImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    } else {
+	    	notice.setNoticeImage(null);
+	    }
 	    
 		noticeMapper.insertNotice(notice);
 	}
@@ -217,7 +261,11 @@ public class AdminService {
 	    Notice notice = new Notice();
 	    notice.setTitle(noticeDTO.getTitle());
 	    notice.setContent(noticeDTO.getContent());
-	    notice.setNoticeImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    if(fileName != null) {
+	    	notice.setNoticeImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    } else {
+	    	notice.setNoticeImage(null);
+	    }
 	    
 		noticeMapper.updateNotice(notice, id);
 	}
@@ -261,7 +309,6 @@ public class AdminService {
 	        String staticImagePath = new File("src/main/resources/static/images").getAbsolutePath();
 	        fileName = System.currentTimeMillis() + "_" + eventImage.getOriginalFilename();
 	        filePath = staticImagePath + "/" + fileName;
-	        System.out.println(filePath);
 
 	        File file = new File(filePath);
 
@@ -279,7 +326,11 @@ public class AdminService {
 	    event.setContent(eventDTO.getContent());
 	    event.setStartDate(Date.from(eventDTO.getStartDate().atZone(ZoneId.systemDefault()).toInstant()));
 	    event.setEndDate(Date.from(eventDTO.getEndDate().atZone(ZoneId.systemDefault()).toInstant()));
-	    event.setEventImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    if(fileName != null) {
+	    	event.setEventImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    } else {
+	    	event.setEventImage(null);
+	    }
 	    
 	    noticeMapper.insertEvent(event);
 	}
@@ -312,7 +363,11 @@ public class AdminService {
 	    event.setContent(eventDTO.getContent());
 	    event.setStartDate(Date.from(eventDTO.getStartDate().atZone(ZoneId.systemDefault()).toInstant()));
 	    event.setEndDate(Date.from(eventDTO.getEndDate().atZone(ZoneId.systemDefault()).toInstant()));
-	    event.setEventImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    if(fileName != null) {
+	    	event.setEventImage("/images/" + fileName); // DB에는 상대 경로로 저장
+	    } else {
+	    	event.setEventImage(null);
+	    }
 	    
 		noticeMapper.updateEvent(event, id);
 	}

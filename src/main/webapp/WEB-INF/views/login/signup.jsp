@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="css/login/yunyoung.css">
+  <link rel="stylesheet" href="css/login/loginCommon.css">
 </head>
 <body>
 <div class="signup-container">
@@ -16,14 +16,13 @@
   
   <form class="signup-form">
     <button type="button" class="signup-button"
-    onClick = "location.href='memberForm.do' ">
-   	개인회원
-   	 
+      onClick = "location.href='memberForm'">
+      개인회원
     </button>
+
     <button type="button" class="signup-button"
-     onClick = "location.href='ownerForm.do' ">
-    사업자회원
-   	
+      onClick = "location.href='ownerForm'">
+      사업자회원
    	</button>
   </form>
 </div>
