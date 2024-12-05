@@ -363,12 +363,19 @@ $(document).ready(function() {
 		const memberId = $('#memberId').val().trim();
 		const fullEmail = `${mailid}@${domain}`;
 
+		const csrfToken = $('meta[name="_csrf"]').attr('content');
+		const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
 		// 이메일 서버에 전송
 		$.ajax({
 			url: '/sendPwdResetEmail',
 			type: 'POST',
-			data: { memberId : memberId,
-						userEmail: fullEmail },
+			data: {
+				memberId: memberId,
+				userEmail: fullEmail
+			},
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeader, csrfToken);
+			},
 			success: function(response) {
 				alert(response);
 			},
