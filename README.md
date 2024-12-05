@@ -1,5 +1,6 @@
 # 냐미냐미 🍔
-![NYUMINYUMI](https://github.com/user-attachments/assets/d8e455fd-e599-416e-ae8f-f9b9be585f1e)
+![NYAMINYAMI png](https://github.com/user-attachments/assets/7b52e590-fb46-4e03-99df-3feb685909bb)
+
 
 
 <br>
