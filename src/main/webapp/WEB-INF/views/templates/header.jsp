@@ -7,7 +7,7 @@
 <header class="header">
     <!-- 로고 -->
     <div class="page-name">
-        <a href="/"><img src="/images/home/NYUMINYUMI.png" style="width: 60%;" alt="냐미냐미"></a>
+        <a href="/"><img src="/images/home/NYAMINYAMI.png" style="width: 60%;" alt="냐미냐미"></a>
     </div>
     
     <!-- 인증 버튼 -->
